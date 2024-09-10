@@ -7,14 +7,26 @@ const Contact = () => {
 
   const [contacts, setContacts] = useState(contactData)
 
+  const toogle = (id) => {
+    setContacts((prevState) => {
+      return (
+        prevState.map((contact) => {
+          return (
+            contact.id === id ? {...contact, isFavourite: !contact.isFavourite} : contact
+          )
+        })
+      )
+    })
+  }
+
   const allContacts = contacts.map((contact) => {
     return (
-      <Contacts firstName={contact.firstName} lastName={contact.lastName} phone={contact.phone} email={contact.email} />
+      <Contacts firstName={contact.firstName} lastName={contact.lastName} phone={contact.phone} email={contact.email} image={contact.img} isFilled={contact.isFavourite} handleClick={() => {toogle(contact.id)}} />
     )
   })
 
   return (
-    <div>
+    <div className='flex space-x-8  flex-row'>
       {allContacts}
     </div>
   )
